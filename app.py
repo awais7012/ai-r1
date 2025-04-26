@@ -151,6 +151,10 @@ discriminator.eval()
 # ------------------------------------------------------------------
 app = FastAPI(debug=True)
 
+app.use(cors({
+  origin: 'https://dark-face-forge.vercel.app/'
+}))
+
 @app.get("/generate/{prompt}")
 async def generate_image(prompt: str):
     try:
