@@ -149,11 +149,19 @@ discriminator.eval()
 # ------------------------------------------------------------------
 # FastAPI app
 # ------------------------------------------------------------------
-app = FastAPI(debug=True)
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-app.use(cors({
-  origin: 'https://dark-face-forge.vercel.app/'
-}))
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://dark-face-forge.vercel.app"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/generate/{prompt}")
 async def generate_image(prompt: str):
